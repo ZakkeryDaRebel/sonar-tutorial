@@ -118,7 +118,7 @@ class CustomFileReader {
      * @throws FileNotFoundException
      */
     private Scanner createScanner() throws FileNotFoundException {
-        return new Scanner(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
+        return new Scanner(new InputStreamReader(new FileInputStream(this.getPath()), StandardCharsets.UTF_8));
     }
 
     /**
@@ -178,6 +178,6 @@ class CustomFileReader {
             return false;
         }
 
-        return comparedReader.getPath() != null && comparedReader.getPath().equals(path);
+        return comparedReader.getPath() != null && comparedReader.getPath().equals(this.getPath());
     }
 }
