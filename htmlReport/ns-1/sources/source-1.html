@@ -1,0 +1,299 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CustomFileReader</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.byu.cs.sonar</a>
+</div>
+
+<h1>Coverage Summary for Class: CustomFileReader (edu.byu.cs.sonar)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CustomFileReader</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (8/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (6/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    67.6%
+  </span>
+  <span class="absValue">
+    (23/34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.byu.cs.sonar;
+&nbsp;
+&nbsp;import java.io.FileInputStream;
+&nbsp;import java.io.FileNotFoundException;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * This is a class that will handle the file reading
+&nbsp; */
+&nbsp;class CustomFileReader {
+&nbsp;    /**
+&nbsp;     * The path to the file to be scanned
+&nbsp;     */
+&nbsp;    private final String path;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The sentence that will be constructed
+&nbsp;     */
+&nbsp;    private String newSentence;
+&nbsp;    /**
+&nbsp;     * The number of words read in by the scanner
+&nbsp;     */
+&nbsp;    private int count;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for our class
+&nbsp;     *
+&nbsp;     * @param fileName the file to be read in
+&nbsp;     */
+<b class="fc">&nbsp;    public CustomFileReader(final String fileName) {</b>
+<b class="fc">&nbsp;        path = fileName;</b>
+<b class="fc">&nbsp;        newSentence = &quot;&quot;;</b>
+<b class="fc">&nbsp;        count = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This will find how many words are in the text file provided
+&nbsp;     *
+&nbsp;     * @return how many words in the file
+&nbsp;     */
+&nbsp;    int howManyWordsInFile() throws FileNotFoundException {
+<b class="fc">&nbsp;        try (Scanner s = createScanner()) {</b>
+<b class="fc">&nbsp;            while (s.hasNext()) {</b>
+<b class="fc">&nbsp;                s.next();</b>
+<b class="fc">&nbsp;                count++;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return count;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This will return the word at the given index in the text file
+&nbsp;     *
+&nbsp;     * @param index which number word should be taken back
+&nbsp;     * @return correct word
+&nbsp;     */
+&nbsp;    String returnThatWord(final int index) throws FileNotFoundException {
+<b class="fc">&nbsp;        String returnWord = &quot;&quot;;</b>
+<b class="fc">&nbsp;        try (Scanner s = createScanner()) {</b>
+<b class="fc">&nbsp;            for (int i = 0; i &lt; index; i++) {</b>
+<b class="fc">&nbsp;                returnWord = s.next();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return returnWord;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This will search for a word that contains the same letter as the
+&nbsp;     * one provided in the argument and return that word
+&nbsp;     *
+&nbsp;     * @param letter eventually will be the character we are looking for in the word
+&nbsp;     */
+&nbsp;    void findNewWord(final CharSequence letter) throws FileNotFoundException {
+<b class="fc">&nbsp;        try (Scanner s = createScanner()) {</b>
+<b class="fc">&nbsp;            String word = s.next();</b>
+&nbsp;
+<b class="fc">&nbsp;            while (!word.contains(letter)) {</b>
+<b class="fc">&nbsp;                word = s.next();</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            newSentence = newSentence + word + &quot; &quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is a standard getter
+&nbsp;     *
+&nbsp;     * @return the sentence created by the reader
+&nbsp;     */
+&nbsp;    String getNewSentence() {
+<b class="fc">&nbsp;        return newSentence;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is standard setter
+&nbsp;     *
+&nbsp;     * @param betterSentence The new sentence for the reader
+&nbsp;     */
+&nbsp;    void setNewSentence(final String betterSentence) {
+<b class="fc">&nbsp;        newSentence = betterSentence;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is a private getter since only this class will
+&nbsp;     * make use of it
+&nbsp;     *
+&nbsp;     * @return the number of words in the dictionary
+&nbsp;     */
+&nbsp;    private int getCount() {
+<b class="nc">&nbsp;        return count;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Create a new Scanner to be used to read the contents of a file
+&nbsp;     * @return Scanner
+&nbsp;     * @throws FileNotFoundException if there is no file associated with path, throw an error
+&nbsp;     */
+&nbsp;    private Scanner createScanner() throws FileNotFoundException {
+<b class="fc">&nbsp;        return new Scanner(new InputStreamReader(new FileInputStream(this.getPath()), StandardCharsets.UTF_8));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is another private getter
+&nbsp;     *
+&nbsp;     * @return the number of words in the dictionary
+&nbsp;     */
+&nbsp;    private String getPath() {
+<b class="fc">&nbsp;        return path;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a hash number so this data type can be used for
+&nbsp;     * bucketing and stored in a Hash implementation like a
+&nbsp;     * HashMap, HashTable, HashSet, etc.
+&nbsp;     *
+&nbsp;     * @return hashcode for this specific instance of a reader
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Integer.parseInt(newSentence) * count * 3;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns information: of the sentence this reader holds,
+&nbsp;     * as well as the number of words in the dictionary from
+&nbsp;     * which this reader reads.
+&nbsp;     *
+&nbsp;     * @return String for this specific instance of a reader
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return newSentence + &quot; &quot; + count;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if the object being processed is an
+&nbsp;     * instance of this exact class. That includes
+&nbsp;     * type and member variables.
+&nbsp;     *
+&nbsp;     * @param object data type sent to be processed
+&nbsp;     * @return true or false based on the processed object
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean equals(final Object object) {
+<b class="nc">&nbsp;        if (object.getClass() != this.getClass()) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        final CustomFileReader comparedReader = (CustomFileReader) object;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (!comparedReader.getNewSentence().equals(newSentence)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (comparedReader.getCount() != count) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return comparedReader.getPath() != null &amp;&amp; comparedReader.getPath().equals(this.getPath());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-22 14:36</div>
+</div>
+</body>
+</html>
