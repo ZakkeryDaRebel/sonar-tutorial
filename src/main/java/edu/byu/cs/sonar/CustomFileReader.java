@@ -29,7 +29,7 @@ class CustomFileReader {
      *
      * @param fileName the file to be read in
      */
-    CustomFileReader(final String fileName) {
+    public CustomFileReader(final String fileName) {
         path = fileName;
         newSentence = "";
         count = 0;
