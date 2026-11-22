@@ -115,7 +115,7 @@ class CustomFileReader {
     /**
      * Create a new Scanner to be used to read the contents of a file
      * @return Scanner
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if there is no file associated with path, throw an error
      */
     private Scanner createScanner() throws FileNotFoundException {
         return new Scanner(new InputStreamReader(new FileInputStream(this.getPath()), StandardCharsets.UTF_8));
