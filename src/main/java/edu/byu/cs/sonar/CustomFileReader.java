@@ -14,7 +14,7 @@ class CustomFileReader {
     /**
      * The path to the file to be scanned
      */
-    private String path;;
+    private final String path;
 
     /**
      * The sentence that will be constructed
